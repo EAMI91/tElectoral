@@ -116,9 +116,11 @@ DBI::dbExecute(pool, "CREATE TABLE IF NOT EXISTS tElectoralTest_partidoCandidato
   nombreCandidato VARCHAR(50) NOT NULL  
   );")
 
-# DBI::dbExecute(pool, "INSERT INTO `tElectoralTest_partidoCandidato` VALUES (1, 'PRI', 'Juan'),
-# (2, 'PAN', 'Juan'),
-# (3, 'PRD', 'Pedro'),
+DBI::dbExecute(pool, "INSERT INTO `tElectoralTest_partidoCandidato` VALUES (1, 'MORENA', 'AMLO'),
+(2, 'PAN', 'ANAYA'),
+(3, 'PRI', 'MEADE'),
+(4, 'INDEPENDIENTE 1', 'MARGARITA'),
+(5, 'INDEPENDIENTE 2', 'BRONCO');")
 # (4, 'MORENA', 'Angel'),
 # (5, 'PT', 'Gerardo'),
 # (6, 'PVEM', 'Emilio'),
@@ -127,8 +129,8 @@ DBI::dbExecute(pool, "CREATE TABLE IF NOT EXISTS tElectoralTest_partidoCandidato
 # (9, 'INDEPENDIENTE', 'Oscar');")
 # DBI::dbExecute(pool, "INSERT INTO `tElectoralTest_partidoCandidato` VALUES (10, 'No sabe', 'No sabe'),
 # (11, 'No contestó', 'No contestó');")
-#tbl(pool,"tElectoralTest_partidoCandidato") %>% collect()
-#DBI::dbRemoveTable(pool, "partidoCandidato")
+# tbl(pool,"tElectoralTest_partidoCandidato") %>% collect()
+DBI::dbRemoveTable(pool, "tElectoralTest_partidoCandidato")
 
 
 DBI::dbExecute(pool, "CREATE TABLE IF NOT EXISTS tElectoralTest_coloresOficiales(
@@ -172,7 +174,10 @@ DBI::dbExecute(pool, "CREATE TABLE tElectoralTest_investigacion_formularioGenera
   usuarioEdicion VARCHAR(100),
   activo TINYINT
 );" )
-#DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_formularioGeneral")
+
+# DBI::dbExecute(pool, glue::glue("INSERT INTO `tElectoralTest_investigacion_formularioGeneral` VALUES
+#  (1, 'SDP Noticias', 'SDP Noticias', 'Nacional', '2020-03-26', '2020-03-31','{lubridate::now()}','NA','admin','NA','');"))
+# DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_formularioGeneral")
 
 #DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_cuestionario")
 DBI::dbExecute(pool, "CREATE TABLE tElectoralTest_investigacion_cuestionario (
@@ -196,7 +201,7 @@ DBI::dbExecute(pool, "CREATE TABLE tElectoralTest_investigacion_cuestionario (
   CONSTRAINT FK_cuestionario_FormGeneral FOREIGN KEY (idFormGeneral) REFERENCES tElectoralTest_investigacion_formularioGeneral(idFormGeneral)
 );" )
 
-#DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_cuestionario_preguntasXBloque")
+# DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_cuestionario_preguntasXBloque")
 DBI::dbExecute(pool, "CREATE TABLE tElectoralTest_investigacion_cuestionario_preguntasXBloque (
   idPreguntaXBloque INT AUTO_INCREMENT PRIMARY KEY,
   idCuestionario INT,
@@ -236,7 +241,7 @@ DBI::dbExecute(pool, "CREATE TABLE tElectoralTest_investigacion_intencionVoto (
   activo TINYINT,
   CONSTRAINT FK_intencionVoto_FormGeneral FOREIGN KEY (idFormGeneral) REFERENCES tElectoralTest_investigacion_formularioGeneral(idFormGeneral)
 );" )
-#DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_intencionVoto")
+# DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_intencionVoto")
 
 DBI::dbExecute(pool, "CREATE TABLE IF NOT EXISTS tElectoralTest_investigacion_intencionVotoRegistro (
   idIntencionVotoRegistro INT AUTO_INCREMENT PRIMARY KEY,
@@ -251,12 +256,12 @@ DBI::dbExecute(pool, "CREATE TABLE IF NOT EXISTS tElectoralTest_investigacion_in
   activo TINYINT,
   CONSTRAINT FK_intencionVotoRegistro_intencionVoto FOREIGN KEY (idIntencionVoto) REFERENCES tElectoralTest_investigacion_intencionVoto(idIntencionVoto)
 );")
-#DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_intencionVotoRegistro")
+# DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_intencionVotoRegistro")
 
-DBI::dbExecute(pool, "CREATE TABLE IF NOT EXISTS tElectoralTest_MarcoMuestral (
-  idMarco INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  nombreMarco VARCHAR(50) NOT NULL );")
-
+# DBI::dbExecute(pool, "CREATE TABLE IF NOT EXISTS tElectoralTest_MarcoMuestral (
+#   idMarco INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+#   nombreMarco VARCHAR(50) NOT NULL );")
+# 
 # DBI::dbExecute(pool, "INSERT INTO `tElectoralTest_MarcoMuestral` VALUES
 #  (1, 'manzana'),
 #  (2, 'sección'),
@@ -291,7 +296,13 @@ DBI::dbExecute(pool, "CREATE TABLE tElectoralTest_investigacion_disenoMuestral (
   CONSTRAINT FK_DisMuestral_FormGeneral FOREIGN KEY (idFormGeneral) REFERENCES tElectoralTest_investigacion_formularioGeneral(idFormGeneral)
 );")
 
-#DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_disenoMuestral")
 
+# DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_disenoMuestral")
 
+# DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_disenoMuestral")
+# DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_intencionVotoRegistro")
+# DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_intencionVoto")
+# DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_cuestionario_preguntasXBloque")
+# DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_cuestionario")
+# DBI::dbRemoveTable(pool,"tElectoralTest_investigacion_formularioGeneral")
 # usethis::use_data(AWS, overwrite = TRUE)
